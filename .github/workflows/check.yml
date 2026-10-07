@@ -39,10 +39,12 @@ jobs:
             echo "::error::Configure the CHECK_WORKER repository variable before running."
             exit 1
           fi
+          python -m unittest discover -s tests -v
           python vpngate.py
         env:
           # 仓库变量中配置实际的检测 Worker 地址
           CHECK_WORKER: ${{ vars.CHECK_WORKER }}
+          EDGE_HOSTS: ${{ vars.EDGE_HOSTS }}
           NODES_URL: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/nodes.txt"
           CHECK_CONCURRENCY: "32"
           CHECK_TIMEOUT: "90"
